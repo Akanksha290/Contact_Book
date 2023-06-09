@@ -111,9 +111,6 @@ def update():
 
 # Contact Book
 
-
-
-
 def book():
     import pandas as pd
     a = pd.Series(name,name='Name')
