@@ -1,0 +1,147 @@
+name = ['Admin']
+number = ['1234567890']
+
+# Contact Save
+
+def save():
+    while 1:
+        nam = input('''press 0 for exit..
+Enter name :''' ).capitalize()
+        if nam=='0':
+            return 'Exit'
+        if nam not in name:
+            name.append(nam)
+            while 1:
+                num = input('''press 0 for exit..
+Enter number : ''')
+                if num=='0':
+                    return 'EXIT'
+                if num.isdigit() and len(num) == 10 and num not in number:
+                    number.append(num)
+                    return  'Number save'
+                
+                else:
+                    print('Invalid No....')
+                
+            break
+        else :
+            print( 'Name already exist')
+            
+# save()
+
+# Delete Contact
+
+def dele():
+    while 1:
+        delete = input('''Press 0 for exit
+        Enter the name or number : ''').capitalize()
+        if delete == '0':
+            return 'Exit'
+        elif delete in name or delete in number :
+            if delete in name :
+                number.pop(name.index(delete))
+                name.pop(name.index(delete))
+                return 'delete contact successful'
+            else:
+                name.pop(number.index(delete))
+                number.pop(number.index(delete))
+                return 'delete contact successful'
+        else:
+            print('Invalid...')
+# dele()
+
+# Search Contact
+
+def search():
+    while 1:
+        n = input('''press 0 for exit..
+Enter the Name or Number for search :''').capitalize()
+        if n=='0':
+            return 'EXIT'
+        elif n in name or n in number:
+            if n in name:
+                return f"{name[name.index(n)]} : {(number[name.index(n)])}"
+            else:
+                return f"{name[number.index(n)]} : {(number[number.index(n)])}"
+        
+        else:
+            print('Contact not found...')
+            
+        
+# search()
+
+# Update Contact
+
+def update():
+    while 1:
+        choice = input('''Press 1 for update name
+        Press 2 for update number
+        Press 0 for exit...''')
+        if choice == '1':
+            nam = input('Enter the old name : ').capitalize()
+            if nam in name:
+                new = input('Enter the new name : ').capitalize()
+                if new not in name:
+                    name[name.index(nam)] = new
+                    return 'Update contact successfully'
+                else:
+                    print('Name already exist')
+            else:
+                print('Name not found...')
+        elif choice == '2':
+            numb = input('Enter the old number : ')
+            if numb in number:
+                newnum = input('Enter the new number : ')
+                if newnum.isdigit() and len(newnum) == 10 :
+                    if newnum not in number:
+                        number[number.index(numb)] = newnum
+                        return 'Number update successfully...'
+                    else:
+                        print('Number already exist')
+                else :
+                    print('Invalid Number...')
+            else:
+                print('Number not found')
+        elif choice == '0':
+            return 'Exit'
+        else :
+            print(' Invalid Choice')
+        
+# update()
+
+# Contact Book
+
+
+
+
+def book():
+    import pandas as pd
+    a = pd.Series(name,name='Name')
+    b = pd.Series(number,name='Number')
+    c = pd.concat([a,b],axis = 1)
+    df = pd.DataFrame(c)
+    df.index=[x for x in range(1,len(name)+1)]
+    return df
+# book()
+
+while 1:    
+    choice = input('''Press 1 for Contact save
+Press 2 for Search Contact 
+Press 3 for Delete Contact
+Press 4 for Update Contact
+Press 5 for Contact List
+Press 0 for Exit''')
+    if choice == '1':
+        print(save())
+    elif choice == '2':
+        print(search())
+    elif choice == '3':
+        print(dele())
+    elif choice == '4':
+        print(update())
+    elif choice == '5':
+        print(book())
+    elif choice == '0':
+        break
+    else:
+        print('Invalid Input...')
